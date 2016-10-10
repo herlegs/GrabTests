@@ -67,6 +67,20 @@ public class RESTApiTest {
 //	}
 	
 	@Test
+	public void testEmptyNullSearch(){
+		String address = "";
+		Location result = api.getLocation(address);
+		if(isWrongResult(address, result)){
+			fail("different from expected");
+		}
+		address = null;
+		result = api.getLocation(address);
+		if(isWrongResult(address, result)){
+			fail("different from expected");
+		}
+	}
+	
+	@Test
 	public void testSimpleAddress() {
 		String address = "singapore+279832";
 		Location result = api.getLocation(address);
