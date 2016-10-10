@@ -56,7 +56,7 @@ public class RESTApi {
 		Location location = new Location();
 		JsonObject response = new JsonParser().parse(json).getAsJsonObject();
 		String status = response.getAsJsonPrimitive("status").getAsString();
-		if(status == "OK"){
+		if(status.equals("OK")){
 			JsonObject result = response.getAsJsonArray("results").get(0).getAsJsonObject();
 			JsonObject locationJsonObject = result.getAsJsonObject("geometry").getAsJsonObject("location");
 			double lat = locationJsonObject.getAsJsonPrimitive("lat").getAsDouble();

@@ -37,7 +37,7 @@ public class TestUtil {
 			int len = Integer.parseInt(lenString);
 			String cur = s.substring(separatorPos + 1, separatorPos + 1 + len);
 			result.add(cur);
-			begin = separatorPos + 1;
+			begin = separatorPos + 1 + len;
 		}
 		return result;
 	}

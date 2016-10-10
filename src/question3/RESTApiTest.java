@@ -9,8 +9,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
-import javax.swing.text.html.InlineView;
-
 import org.junit.Before;
 import org.junit.Test;
 
@@ -18,22 +16,15 @@ import TestUtil.TestUtil;
 
 public class RESTApiTest {
 	private RESTApi api;
-	private Map<String, Location> expected;
+	private Map<String, Location> expected = new HashMap<String, Location>();
 	
 	@Before
 	public void setUp(){
 		api = new RESTApi();
 		loadExpectedFromFile();
-		generateExpectedData();
-	}
-	
-	private void generateExpectedData(){
-		CreateTestFileBatch batch = new CreateTestFileBatch();
-		batch.generateExpectedData();
 	}
 	
 	private void loadExpectedFromFile(){
-		expected = new HashMap<String, Location>();
 		ClassLoader classLoader = getClass().getClassLoader();
 		File file = new File(classLoader.getResource("expected.txt").getFile());
 		try {
@@ -49,8 +40,8 @@ public class RESTApiTest {
 					expected.put(search, location);
 				}
 			}
+			in.close();
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -69,9 +60,24 @@ public class RESTApiTest {
 		return false;
 	}
 	
+//	@Test
+//	public void generateExpectedData(){
+//		CreateTestFileBatch batch = new CreateTestFileBatch();
+//		batch.generateExpectedData();
+//	}
+	
 	@Test
-	public void TestSimpleAddress() {
+	public void testSimpleAddress() {
 		String address = "singapore+279832";
+		Location result = api.getLocation(address);
+		if(isWrongResult(address, result)){
+			fail("different from expected");
+		}
+	}
+	
+	@Test
+	public void testAWrongAddress(){
+		String address = "grab";
 		Location result = api.getLocation(address);
 		if(isWrongResult(address, result)){
 			fail("different from expected");
