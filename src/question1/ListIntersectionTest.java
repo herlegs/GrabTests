@@ -76,6 +76,9 @@ public class ListIntersectionTest {
 		assertTrue(TestUtil.isSameListIgnoreOrder(expected, hashSearchResult));
 	}
 
+	/***
+	 * this test may take around 20 seconds
+	 */
 	@Test
 	public void testPerformance() {
 		List<String> aList = new ArrayList<>();
